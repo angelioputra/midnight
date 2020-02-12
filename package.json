@@ -1,6 +1,6 @@
 {
   "name": "@angelioputra/midnight",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Vue Design System is an open-source tool for building Design Systems with Vue.js",
   "author": "Angelio <angelio@member.id>",
   "main": "dist/system/system.js",
