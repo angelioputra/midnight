@@ -72,6 +72,14 @@ module.exports = {
       ],
     },
     {
+      name: "Atoms",
+      content: "../docs/atoms.md",
+      components: "../src/components/atoms/**/[A-Z]*.vue",
+      exampleMode: "expand",
+      usageMode: "expand",
+      sectionDepth: 2,
+    },
+    {
       name: "Elements",
       content: "../docs/elements.md",
       components: "../src/elements/**/[A-Z]*.vue",
