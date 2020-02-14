@@ -1,5 +1,19 @@
 <template>
-  <button>Hai</button>
+  <button
+    class="mid-button"
+    @click="handleClick"
+    :disabled="disabled || loading"
+    :class="[
+      type ? 'mid-button--' + type : '',
+      size ? 'mid-button--' + size : '',
+      {
+        'is-disabled': disabled,
+        'is-loading': loading,
+      },
+    ]"
+  >
+    <span v-if="$slots.default"><slot></slot></span>
+  </button>
 </template>
 
 <script>
@@ -14,166 +28,72 @@ export default {
   release: "3.5.0",
   props: {
     /**
-     * The html element used for the button.
-     * `button, a`
+     * Type of the button
+     * `primary, success, warning, danger, info, default`
      */
     type: {
       type: String,
-      default: "button",
+      default: "default",
       validator: value => {
-        return value.match(/(button|a)/)
+        return value.match(/(primary|success|warning|danger|info|default)/)
       },
     },
     /**
-     * The size of the button. Defaults to medium.
-     * `small, medium, large`
+     * Size of the button
+     * `small, medium`
      */
     size: {
       type: String,
       default: "medium",
       validator: value => {
-        return value.match(/(small|medium|large)/)
+        return value.match(/(mini|small|medium)/)
       },
     },
     /**
-     * When setting the button’s type to a link, use this option to give a href.
+     * Whether the button is disabled or not.
+     * `true, false`
      */
-    href: {
-      type: String,
-      default: null,
+    disabled: {
+      type: Boolean,
+      default: false,
     },
+
     /**
-     * Set the button’s type to “submit”.
+     * Whether the button is loading or not.
+     * `true, false`
      */
-    submit: {
-      type: String,
-      default: null,
-      validator: value => {
-        return value.match(/(null|submit)/)
-      },
-    },
-    /**
-     * Manually trigger various states of the button.
-     * `hover, active, focus`
-     */
-    state: {
-      type: String,
-      default: null,
-      validator: value => {
-        return value.match(/(hover|active|focus)/)
-      },
-    },
-    /**
-     * Style variation to give additional meaning.
-     * `primary, secondary`
-     */
-    variation: {
-      type: String,
-      default: null,
-      validator: value => {
-        return value.match(/(primary|secondary)/)
-      },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.button {
-  @include reset;
-  @include stack-space($space-m);
-  @include inline-space($space-xs);
-  will-change: transform;
-  transition: all 0.2s ease;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: $weight-semi-bold;
-  font-size: $size-m;
-  font-family: $font-text;
-  line-height: $line-height-m;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  box-shadow: inset 0 0 0 2px $color-bleu-de-france;
-  border-radius: $radius-default;
-  background: transparent;
-  color: $color-bleu-de-france;
-  cursor: pointer;
-  &:hover,
-  &.hover {
-    color: $color-white;
-    background: $color-bleu-de-france;
-    transform: translateZ(0) scale(1.03);
-  }
-  &:active,
-  &.active {
-    transition: none;
-    background: $color-bleu-de-france-dark;
-    box-shadow: none;
-    color: $color-white;
-    transform: translateZ(0) scale(1);
-  }
-
-  &:focus,
-  &.focus {
-    background: $color-bleu-de-france-darker;
-    box-shadow: none;
-    color: $color-white;
-    transform: translateZ(0) scale(1);
-    outline: 0;
-  }
-
-  // For icons inside buttons
-  .icon {
-    float: right;
-    margin: -#{$space-xs} -#{$space-xs} -#{$space-s} $space-xs/2;
-    color: $color-bleu-de-france;
-  }
-
-  // Various button sizes
-  &.large {
-    @include inset-squish-space($space-s);
-    font-size: $size-l;
-  }
-  &.medium {
-    @include inset-squish-space($space-s);
-    font-size: $size-m;
-  }
-  &.small {
-    @include inset-squish-space($space-xs);
-    font-size: $size-s;
-  }
-
-  // Primary button
-  &.primary {
-    background: $color-bleu-de-france;
-    color: $color-white;
-    box-shadow: none;
-    &:hover,
-    &.hover {
-      background-color: shade($color-bleu-de-france, 12%);
-    }
-    &:active,
-    &.active {
-      background-color: shade($color-bleu-de-france, 20%);
-      transition: none;
-    }
-    &:focus {
-      outline: 0;
-    }
-    .user-is-tabbing &:focus,
-    &.focus {
-    }
-  }
-}
+@import "button.scss";
 </style>
 
 <docs>
   ```jsx
   <div>
-    <MidButton variation="primary" size="large">Primary Button</MidButton>
+    <MidButton type="primary">Primary</MidButton>
+    <MidButton type="success">Success</MidButton>
+    <MidButton type="warning">Warning</MidButton>
+    <MidButton type="danger">Danger</MidButton>
+    <MidButton type="info">Info</MidButton>
+    <MidButton>Default</MidButton>
+    <pre />
+    <MidButton type="primary" disabled>Primary</MidButton>
+    <MidButton type="success" disabled>Success</MidButton>
+    <MidButton type="warning" disabled>Warning</MidButton>
+    <MidButton type="danger" disabled>Danger</MidButton>
+    <MidButton type="info" disabled>Info</MidButton>
+    <MidButton disabled>Default</MidButton>
+    <pre />
+    <MidButton type="primary" size="mini">Mini</MidButton>
+    <MidButton type="primary" size="small">Small</MidButton>
+    <MidButton type="primary">Normal</MidButton>
   </div>
   ```
 </docs>
