@@ -67,10 +67,15 @@ export default {
       default: false,
     },
   },
+  methods: {
+    handleClick(evt) {
+      this.$emit("click", evt)
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "button.scss";
 </style>
 
