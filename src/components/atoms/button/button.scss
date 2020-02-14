@@ -25,6 +25,13 @@
     $--button-border-radius
   );
 
+  &:hover,
+  &:focus {
+    color: $--color-primary;
+    border-color: $--color-primary-light-7;
+    background-color: $--color-primary-light-9;
+  }
+
   /* Type
   -------------------------- */
   &--primary {

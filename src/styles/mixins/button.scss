@@ -3,6 +3,13 @@
   background-color: $background-color;
   border-color: $border-color;
 
+  &:hover,
+  &:focus {
+    background: mix($--color-black, $background-color, $--button-hover-tint-percent);
+    border-color: mix($--color-black, $border-color, $--button-hover-tint-percent);
+    color: $color;
+  }
+
   &.is-disabled {
     &,
     &:hover,
